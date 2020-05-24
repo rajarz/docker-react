@@ -3,22 +3,19 @@ services:
   - docker
 
 before_install:
-  - docker build -t stephengrider/docker-react -f Dockerfile.dev .
+  - docker build -t rajarz/docker-react -f Dockerfile.dev .
 
 script:
-  - docker run stephengrider/docker-react npm run test -- --coverage
+  - docker run rajarz/docker-react npm run test -- --coverage
 
-# Docker-env.eba-u8xmrw2f.ap-southeast-2.elasticbeanstalk.com
 deploy:
   provider: elasticbeanstalk
   region: "ap-southeast-2"
   app: "docker"
   env: "Docker-env"
-  bucket_name: "elasticbeanstalk-us-east-2-089956021384"
+  bucket_name: "elasticbeanstalk-ap-southeast-2-089956021384"
   bucket_path: "docker"
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
-  secret_access_key:
-    secure: "$AWS_SECRET_KEY"
-
+  secret_access_key: "$AWS_SECRET_KEY"
